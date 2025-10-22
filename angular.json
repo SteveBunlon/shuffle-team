@@ -17,7 +17,6 @@
             "polyfills": [
               "zone.js"
             ],
-            "outputPath": "shuffle-team",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
