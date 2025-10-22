@@ -1,12 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Shuffle } from './shuffle/shuffle';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [Shuffle],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('shuffle-team');
-}
+export class App {}
