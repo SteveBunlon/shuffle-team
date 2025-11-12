@@ -19,6 +19,7 @@ import {
   templateUrl: './shuffle.html',
   styleUrl: './shuffle.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true
 })
 export class Shuffle {
   shuffleForm: any;
