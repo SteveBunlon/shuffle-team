@@ -1,15 +1,20 @@
-@if ( currentMatches.length > 0) {
+@if ( currentTeams.length > 0) {
   <div id="spotlight">
-    <span>{{ currentMatches }}</span>
+    @for (match of parsedCurrentMatches; track match;) {
+      <div>{{ match }}</div>
+    }
+
     <span>Remaining matches : {{ remainingMatches }}</span>
   </div>
 }
 
 <form [formGroup]="shuffleForm" (ngSubmit)="onSubmit()">
-  <mat-form-field hintLabel="List of people, coma separated">
-    <mat-label>Input</mat-label>
-    <input formControlName="people" matInput>
-  </mat-form-field>
+  @if (!currentPeople.length) {
+    <mat-form-field hintLabel="List of people, coma separated">
+      <mat-label>Input</mat-label>
+      <input formControlName="people" matInput>
+    </mat-form-field>
+  }
 
   @if (currentPeople.length && remainingMatches > 0) {
     <button matButton="filled">Next Match</button>
@@ -17,5 +22,4 @@
     <button matButton="filled">Shuffle</button>
   }
 </form>
-
 <button matButton="filled" (click)="reset()">Reset</button>

@@ -23,7 +23,8 @@ import {
 export class Shuffle {
   shuffleForm: any;
   currentPeople: string[] = [];
-  currentMatches: string[] = [];
+  currentTeams: string[][] = [];
+  parsedCurrentMatches: string[] = [];
   playedWithAlready: Record<string, String[]> = {}
   remainingMatches: number = 0;
 
@@ -51,31 +52,35 @@ export class Shuffle {
   reset(): void {
     this.currentPeople = [];
     this.shuffleForm.reset();
-    this.currentMatches = [];
+    this.currentTeams = [];
+    this.parsedCurrentMatches = [];
     this.playedWithAlready = {};
     this.remainingMatches = 0;
   }
 
   pickMates() {
-    this.currentMatches = [];
+    this.currentTeams = [];
 
     const singlePersons = [...this.currentPeople];
 
     for (const am of singlePersons) {
-      if (this.currentMatches.includes(am)) {
+      if (this.currentTeams.find(cm => cm.includes(am))) {
         continue;
       }
 
-      const possibleMates = singlePersons.filter(p => !this.playedWithAlready[p].includes(am) && !this.currentMatches.includes(p));
+      const possibleMates = singlePersons.filter(p => !this.playedWithAlready[p].includes(am) && !this.currentTeams.find(cm => cm.includes(p)));
       const mate = possibleMates[0];
 
       this.playedWithAlready[am].push(mate);
       this.playedWithAlready[mate].push(am);
 
-      this.currentMatches.push(am);
-      this.currentMatches.push(mate);
+      this.currentTeams.push([am, mate]);
     }
 
+    this.parsedCurrentMatches = [];
+    for (let i = 0; i < this.currentTeams.length; i = i + 2) {
+      this.parsedCurrentMatches.push(`${this.currentTeams[i]} vs ${this.currentTeams[i + 1]}`);
+    }
     this.remainingMatches -= 1;
   }
 
