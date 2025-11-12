@@ -11,7 +11,11 @@
     <input formControlName="people" matInput>
   </mat-form-field>
 
-  <button matButton="filled">Shuffle</button>
+  @if (currentPeople.length && remainingMatches > 0) {
+    <button matButton="filled">Next Match</button>
+  } @else if (currentPeople.length === 0) {
+    <button matButton="filled">Shuffle</button>
+  }
 </form>
 
 <button matButton="filled" (click)="reset()">Reset</button>

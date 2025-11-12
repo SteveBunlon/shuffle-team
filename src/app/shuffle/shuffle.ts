@@ -38,6 +38,8 @@ export class Shuffle {
       this.currentPeople = this.shuffleForm.get('people')?.value.split(',');
       this.remainingMatches = this.currentPeople.length - 1;
 
+      this.shuffle(this.currentPeople);
+
       for(const person of this.currentPeople) {
         this.playedWithAlready[person] = [person];
       }
@@ -75,5 +77,21 @@ export class Shuffle {
     }
 
     this.remainingMatches -= 1;
+  }
+
+  shuffle(array: string[]) {
+    let currentIndex = array.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+
+      // Pick a remaining element...
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
   }
 }
